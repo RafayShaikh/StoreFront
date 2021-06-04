@@ -12,7 +12,7 @@ function ProductFeed({ products }) {
             price={price}
             description={description}
             category={category}
-            image={image}
+            images={image.toString()}
           />
         ))}
       <img className='md:col-span-full' src='/ferrari.jpg' alt='' />{' '}
@@ -26,7 +26,7 @@ function ProductFeed({ products }) {
               price={price}
               description={description}
               category={category}
-              image={image}
+              images={image.toString()}
             />
           ))}
       </div>
@@ -39,7 +39,7 @@ function ProductFeed({ products }) {
             price={price}
             description={description}
             category={category}
-            image={image}
+            images={image.toString()}
           />
         ))}
     </div>
