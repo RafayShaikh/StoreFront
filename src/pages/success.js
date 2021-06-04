@@ -17,7 +17,7 @@ function success() {
           </div>
           <p>
             Thank you for shopping with us. We'll send a confirmation once your
-            item has shipped, if you owuld like to check the status of your
+            item has shipped, if you would like to check the status of your
             order(s) please visit the link below
           </p>
           <button

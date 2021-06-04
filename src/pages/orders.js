@@ -14,7 +14,7 @@ function orders({ orders }) {
           Your Orders
         </h1>
         {session ? (
-          <h2>{orders?.length} Orders</h2>
+          <h2>{orders && orders?.length} Orders</h2>
         ) : (
           <h2>Please Sign In to View Orders</h2>
         )}
