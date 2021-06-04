@@ -10,7 +10,7 @@ function CheckoutProduct({
   rating,
   description,
   category,
-  image,
+  images,
   hasPrime,
 }) {
   const dispatch = useDispatch();
@@ -19,7 +19,7 @@ function CheckoutProduct({
   };
   return (
     <div className='grid grid-cols-5'>
-      <Image height={200} width={200} objectFit='contain' src={image} />
+      <Image height={200} width={200} objectFit='contain' src={images} />
 
       <div className='col-span-3 mx5'>
         <p>{title}</p>

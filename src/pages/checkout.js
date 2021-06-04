@@ -4,11 +4,30 @@ import CheckoutProduct from '../components/CheckoutProduct';
 import Header from '../components/Header';
 import { selectItems, selectTotal } from '../slices/basketSlice';
 import Currency from 'react-currency-formatter';
+import { loadStripe } from '@stripe/stripe-js';
+import axios from 'axios';
+
+const stripePromise = loadStripe(process.env.stripe_public_key);
+
 function Checkout() {
   const items = useSelector(selectItems);
   const total = useSelector(selectTotal);
+  const [session] = useSession();
 
-  const session = useSession();
+  const createCheckoutSession = async () => {
+    const stripe = await stripePromise;
+    const checkoutSession = await axios.post('/api/create-checkout-session', {
+      items,
+      email: session.user.email,
+    });
+    const result = await stripe.redirectToCheckout({
+      sessionId: checkoutSession.data.id,
+    });
+    if (result.error) {
+      alert(result.error.message);
+    }
+  };
+
   return (
     <div className='bg-gray-100'>
       <Header />
@@ -29,7 +48,7 @@ function Checkout() {
                 rating={item.rating}
                 description={item.description}
                 category={item.category}
-                image={item.image}
+                images={item.images}
                 hasPrime={item.hasPrime}
               />
             ))}
@@ -45,13 +64,14 @@ function Checkout() {
                 </span>
               </h2>
               <button
-                disabled={!session[0]}
+                onClick={createCheckoutSession}
+                disabled={!session}
                 className={`button mt-2 ${
-                  !session[0] &&
+                  !session &&
                   'from-gray-300 to-gray-500 border-gray-200 text-gray-300 cursor-not-alowed'
                 }`}
               >
-                {!session[0] ? 'Sign In to Checkout' : 'Proceed to Checkout'}
+                {!session ? 'Sign In to Checkout' : 'Proceed to Checkout'}
               </button>
             </>
           )}
