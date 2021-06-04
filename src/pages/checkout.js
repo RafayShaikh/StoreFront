@@ -41,7 +41,7 @@ function Checkout() {
             </h1>
             {items.map((item, i) => (
               <CheckoutProduct
-                key={i}
+                key={item.id}
                 id={item.id}
                 title={item.title}
                 price={item.price}
